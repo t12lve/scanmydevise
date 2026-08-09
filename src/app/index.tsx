@@ -1,98 +1,142 @@
-import * as Device from 'expo-device';
-import { Platform, StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import React, { useState } from 'react';
+import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useAdaptiveLayout } from '../hooks/useAdaptiveLayout';
+import { Header } from '../components/Header';
+import { ScannerPane } from '../components/ScannerPane';
+import { ManualKeypadPane } from '../components/ManualKeypadPane';
+import { SettingsModal } from '../components/SettingsModal';
+import { useRatesStore } from '../store/useRatesStore';
+import * as Haptics from 'expo-haptics';
+import { Camera, Keyboard } from 'lucide-react-native';
 
-import { AnimatedIcon } from '@/components/animated-icon';
-import { HintRow } from '@/components/hint-row';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { WebBadge } from '@/components/web-badge';
-import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
+export default function IndexScreen() {
+  const { isFoldable } = useAdaptiveLayout();
+  const insets = useSafeAreaInsets();
+  const [activeTab, setActiveTab] = useState<'scanner' | 'manual'>('scanner');
+  const [settingsVisible, setSettingsVisible] = useState(false);
+  const { vibrationEnabled } = useRatesStore();
 
-function getDevMenuHint() {
-  if (Platform.OS === 'web') {
-    return <ThemedText type="small">use browser devtools</ThemedText>;
-  }
-  if (Device.isDevice) {
-    return (
-      <ThemedText type="small">
-        shake device or press <ThemedText type="code">m</ThemedText> in terminal
-      </ThemedText>
-    );
-  }
-  const shortcut = Platform.OS === 'android' ? 'cmd+m (or ctrl+m)' : 'cmd+d';
+  const handleTabChange = (tab: 'scanner' | 'manual') => {
+    if (tab !== activeTab) {
+      if (vibrationEnabled) Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+      setActiveTab(tab);
+    }
+  };
+
   return (
-    <ThemedText type="small">
-      press <ThemedText type="code">{shortcut}</ThemedText>
-    </ThemedText>
-  );
-}
+    <GestureHandlerRootView style={styles.container}>
+      {/* Header floats over camera */}
+      <View style={[styles.headerOverlay, { paddingTop: Math.max(insets.top, 10) }]}>
+        <Header onOpenSettings={() => setSettingsVisible(true)} />
+      </View>
+      
+      {isFoldable ? (
+        <View style={styles.dualPaneContainer}>
+          <View style={styles.pane}>
+            <ScannerPane />
+          </View>
+          <View style={styles.separator} />
+          <View style={styles.pane}>
+            <ManualKeypadPane />
+          </View>
+        </View>
+      ) : (
+        <View style={styles.singlePaneContainer}>
+          {activeTab === 'scanner' ? <ScannerPane /> : <ManualKeypadPane />}
+          
+          {/* Floating Navigation Pill */}
+          <View style={[styles.floatingNavContainer, { bottom: Math.max(insets.bottom + 16, 32) }]}>
+            <View style={styles.floatingNav}>
+              <TouchableOpacity 
+                style={[styles.navItem, activeTab === 'scanner' && styles.activeNavItem]} 
+                onPress={() => handleTabChange('scanner')}
+              >
+                <Camera size={16} color={activeTab === 'scanner' ? '#FFF' : '#888'} />
+                <Text style={[styles.navText, activeTab === 'scanner' && styles.activeNavText]}>
+                  Caméra
+                </Text>
+              </TouchableOpacity>
+              
+              <TouchableOpacity 
+                style={[styles.navItem, activeTab === 'manual' && styles.activeNavItem]} 
+                onPress={() => handleTabChange('manual')}
+              >
+                <Keyboard size={16} color={activeTab === 'manual' ? '#FFF' : '#888'} />
+                <Text style={[styles.navText, activeTab === 'manual' && styles.activeNavText]}>
+                  Clavier
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      )}
 
-export default function HomeScreen() {
-  return (
-    <ThemedView style={styles.container}>
-      <SafeAreaView style={styles.safeArea}>
-        <ThemedView style={styles.heroSection}>
-          <AnimatedIcon />
-          <ThemedText type="title" style={styles.title}>
-            Welcome to&nbsp;Expo
-          </ThemedText>
-        </ThemedView>
-
-        <ThemedText type="code" style={styles.code}>
-          get started
-        </ThemedText>
-
-        <ThemedView type="backgroundElement" style={styles.stepContainer}>
-          <HintRow
-            title="Try editing"
-            hint={<ThemedText type="code">src/app/index.tsx</ThemedText>}
-          />
-          <HintRow title="Dev tools" hint={getDevMenuHint()} />
-          <HintRow
-            title="Fresh start"
-            hint={<ThemedText type="code">npm run reset-project</ThemedText>}
-          />
-        </ThemedView>
-
-        {Platform.OS === 'web' && <WebBadge />}
-      </SafeAreaView>
-    </ThemedView>
+      <SettingsModal
+        visible={settingsVisible}
+        onClose={() => setSettingsVisible(false)}
+      />
+    </GestureHandlerRootView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    backgroundColor: '#000',
+  },
+  headerOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    zIndex: 100,
+  },
+  dualPaneContainer: {
+    flex: 1,
     flexDirection: 'row',
   },
-  safeArea: {
+  singlePaneContainer: {
     flex: 1,
-    paddingHorizontal: Spacing.four,
-    alignItems: 'center',
-    gap: Spacing.three,
-    paddingBottom: BottomTabInset + Spacing.three,
-    maxWidth: MaxContentWidth,
   },
-  heroSection: {
-    alignItems: 'center',
-    justifyContent: 'center',
+  pane: {
     flex: 1,
-    paddingHorizontal: Spacing.four,
-    gap: Spacing.four,
   },
-  title: {
-    textAlign: 'center',
+  separator: {
+    width: 2,
+    backgroundColor: '#2A2A2A',
   },
-  code: {
-    textTransform: 'uppercase',
+  floatingNavContainer: {
+    position: 'absolute',
+    bottom: 24, // Place it nicely at the bottom
+    left: 0,
+    right: 0,
+    alignItems: 'center',
+    zIndex: 200, // Above everything including bottom sheet if possible
   },
-  stepContainer: {
-    gap: Spacing.three,
-    alignSelf: 'stretch',
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.four,
-    borderRadius: Spacing.four,
+  floatingNav: {
+    flexDirection: 'row',
+    backgroundColor: 'rgba(20, 20, 20, 0.85)',
+    borderRadius: 30,
+    padding: 4,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.1)',
+  },
+  navItem: {
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 26,
+  },
+  activeNavItem: {
+    backgroundColor: '#208AEF',
+  },
+  navText: {
+    color: '#888',
+    fontWeight: 'bold',
+    fontSize: 14,
+  },
+  activeNavText: {
+    color: '#FFF',
   },
 });

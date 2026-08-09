@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Politique de Confidentialité — Scan My Devise (t12lve)</title>
+  <meta name="description" content="Politique de confidentialité officielle de l'application Scan My Devise par t12lve. Transparence totale sur l'utilisation de la caméra et la gestion des données.">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="t12lve">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-color: #0B0E14;
+      --card-bg: rgba(22, 27, 38, 0.75);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --accent-color: #00E676;
+      --accent-glow: rgba(0, 230, 118, 0.25);
+      --text-main: #F0F4F8;
+      --text-muted: #94A3B8;
+      --text-dim: #64748B;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 2rem 1rem;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      background-image: 
+        radial-gradient(circle at 15% 15%, rgba(0, 230, 118, 0.05) 0%, transparent 40%),
+        radial-gradient(circle at 85% 85%, rgba(32, 138, 239, 0.05) 0%, transparent 40%);
+    }
+
+    .container {
+      max-width: 800px;
+      width: 100%;
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 2.5rem;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    }
+
+    header {
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 2rem;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 6px 14px;
+      background: rgba(0, 230, 118, 0.1);
+      border: 1px solid var(--accent-glow);
+      color: var(--accent-color);
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.5px;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .metadata-box {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      margin-top: 1.5rem;
+      font-size: 0.85rem;
+      color: var(--text-dim);
+    }
+
+    .metadata-item strong {
+      color: var(--text-muted);
+    }
+
+    section {
+      margin-bottom: 2rem;
+    }
+
+    h2 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #FFFFFF;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    h2::before {
+      content: '';
+      display: inline-block;
+      width: 4px;
+      height: 18px;
+      background: var(--accent-color);
+      border-radius: 2px;
+    }
+
+    p {
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      font-size: 0.98rem;
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+      margin-bottom: 1rem;
+    }
+
+    li {
+      position: relative;
+      padding-left: 1.5rem;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+      font-size: 0.95rem;
+    }
+
+    li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--accent-color);
+      font-weight: bold;
+    }
+
+    .highlight-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      padding: 1.25rem;
+      margin: 1rem 0;
+    }
+
+    .highlight-card p {
+      margin-bottom: 0;
+    }
+
+    footer {
+      border-top: 1px solid var(--card-border);
+      padding-top: 1.5rem;
+      margin-top: 3rem;
+      text-align: center;
+      color: var(--text-dim);
+      font-size: 0.85rem;
+    }
+
+    footer a {
+      color: var(--accent-color);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        padding: 1.5rem;
+        border-radius: 16px;
+      }
+
+      h1 {
+        font-size: 1.75rem;
+      }
+
+      .metadata-box {
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="container" id="main-content">
+    <header>
+      <span class="badge">Google Play Console Compliant</span>
+      <h1>Politique de Confidentialité</h1>
+      <p class="subtitle">Application <strong>Scan My Devise (SMD)</strong></p>
+      
+      <div class="metadata-box">
+        <div class="metadata-item"><strong>Développeur :</strong> t12lve</div>
+        <div class="metadata-item"><strong>ID Application :</strong> com.t12lve.scanmydevise</div>
+        <div class="metadata-item"><strong>Dernière mise à jour :</strong> 9 août 2026</div>
+      </div>
+    </header>
+
+    <section id="introduction">
+      <h2>1. Engagement de Confidentialité</h2>
+      <p>
+        La présente politique de confidentialité décrit la façon dont l'application <strong>Scan My Devise (SMD)</strong>, développée par <strong>t12lve</strong>, traite vos informations personnelles.
+      </p>
+      <p>
+        Nous croyons en un respect strict de la vie privée. L'application a été conçue pour fonctionner de manière autonome et sécurisée, sans collecte ni revente de données personnelles.
+      </p>
+    </section>
+
+    <section id="camera-usage">
+      <h2>2. Utilisation de la Caméra (Permission CAMERA)</h2>
+      <p>
+        L'application demande l'accès à l'appareil photo de votre appareil mobile pour la fonctionnalité suivante :
+      </p>
+      <div class="highlight-card">
+        <p>
+          <strong>Reconnaissance Optique de Caractères (OCR sur l'appareil) :</strong> La caméra est utilisée exclusivement pour détecter visuellement les montants numériques et les prix figurant dans le viseur à la demande de l'utilisateur.
+        </p>
+      </div>
+      <ul>
+        <li><strong>Traitement 100% Local :</strong> Toutes les images prises ou affichées dans le viseur sont analysées en temps réel directement sur votre téléphone.</li>
+        <li><strong>Aucun Stockage d'Images :</strong> Aucune photo ou flux vidéo n'est enregistré dans la mémoire permanente de l'appareil ni transmis sur un serveur distant.</li>
+        <li><strong>Aucun Envoi Externe :</strong> Les flux vidéo ne quittent jamais votre téléphone.</li>
+      </ul>
+    </section>
+
+    <section id="data-collection">
+      <h2>3. Collecte et Partage de Données</h2>
+      <p>
+        <strong>Scan My Devise ne collecte, n'enregistre, ne suit et ne partage AUCUNE donnée personnelle.</strong>
+      </p>
+      <ul>
+        <li>Aucun identifiant d'appareil, adresse IP ou géolocalisation n'est sauvegardé.</li>
+        <li>Aucun outil de suivi publicitaire ou d'analyse comportementale (analytics tierces) n'est intégré.</li>
+        <li>Aucune création de compte ou adresse e-mail n'est requise pour utiliser l'application.</li>
+      </ul>
+    </section>
+
+    <section id="internet-permission">
+      <h2>4. Connexion Internet & Taux de Change</h2>
+      <p>
+        L'application utilise l'accès réseau (Internet) exclusivement pour télécharger les derniers taux de conversion monétaires mis à jour auprès d'API publiques gratuites et sécurisées.
+      </p>
+      <p>
+        Ces requêtes ne contiennent aucune donnée personnelle ni donnée d'identification utilisateur.
+      </p>
+    </section>
+
+    <section id="data-retention">
+      <h2>5. Historique Local</h2>
+      <p>
+        Les derniers montants scannés ou saisis manuellement sont conservés uniquement dans la mémoire volatile/locale (state) de l'application sur votre téléphone pour votre confort d'utilisation au cours de votre session. Ces données s'effacent selon les paramètres de l'appareil et ne sont jamais synchronisées en ligne.
+      </p>
+    </section>
+
+    <section id="contact">
+      <h2>6. Contact & Support</h2>
+      <p>
+        Pour toute question concernant cette politique de confidentialité ou l'utilisation de l'application, vous pouvez contacter le développeur :
+      </p>
+      <ul>
+        <li><strong>Développeur :</strong> t12lve</li>
+        <li><strong>Application :</strong> Scan My Devise</li>
+        <li><strong>Package :</strong> com.t12lve.scanmydevise</li>
+      </ul>
+    </section>
+
+    <footer>
+      <p>© 2026 t12lve — Scan My Devise. Tous droits réservés.</p>
+    </footer>
+  </main>
+</body>
+</html>

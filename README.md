@@ -1,56 +1,50 @@
-# Welcome to your Expo app 👋
+# Scan My Devise (SMD)
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Application mobile Android native optimisée pour l'ergonomie de terrain, la performance offline-first, la confidentialité absolue et les écrans pliables.
 
-## Get started
+## Fonctionnalités
+- **OCR en Temps Réel** : Lecture des prix via la caméra, traitement local 100% sans envoi de données.
+- **Conversion Instantanée** : Convertit les devises vers l'Euro (base paramétrable hors ligne).
+- **Mode Pliable (Foldable)** : Détection dynamique de l'écran avec passage en mode double-panneau côte à côte.
+- **Privacy-by-Design** : Aucun tracker (Expo Telemetry désactivé), appels réseau uniquement sur demande (Update Rates).
 
-1. Install dependencies
+## Prérequis
+- [Node.js](https://nodejs.org/) (v18+)
+- Compte Expo (Optionnel mais recommandé pour EAS Build cloud)
+- [EAS CLI](https://docs.expo.dev/build/setup/) (`npm install -g eas-cli`)
 
+## Compilation de l'APK (Android)
+
+L'application contient du code natif (`react-native-vision-camera`, `react-native-mmkv`). Elle ne peut pas être lancée dans l'application Expo Go standard. Vous devez compiler un *Development Client* ou directement un fichier APK.
+
+Pour générer un fichier `.apk` prêt à être installé sur votre appareil Android :
+
+1. Connectez-vous à Expo (si vous utilisez le build Cloud) :
    ```bash
-   npm install
+   eas login
    ```
 
-2. Start the app
-
+2. Lancez la compilation via EAS Build :
    ```bash
-   npx expo start
+   eas build --profile preview --platform android
    ```
+   *(EAS générera un lien de téléchargement vers le fichier .apk une fois la compilation terminée)*
 
-In the output, you'll find options to open the app in a
+   > **Note** : Si vous souhaitez compiler l'APK localement sur votre propre machine (nécessite Android Studio / SDK complet) :
+   > ```bash
+   > eas build --profile preview --platform android --local
+   > ```
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## Lancer le Client de Développement (Local)
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+Si vous souhaitez modifier le code en direct avec Hot-Reloading :
+1. Compilez un client de développement Android : `eas build --profile development --platform android`
+2. Installez-le sur votre appareil.
+3. Lancez le serveur Expo : `npx expo start` et scannez le QR Code avec la caméra de l'appareil.
 
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-### Other setup steps
-
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## Structure du projet
+- `app.json` : Configuration Expo avec télémétrie désactivée et plugins pour Camera/MMKV.
+- `src/app/` : Navigation (Expo Router) et détection du mode pliable.
+- `src/store/` : Gestion de l'état global et persistance locale (Zustand + MMKV).
+- `src/components/` : Composants UI (ScannerPane, ManualKeypadPane, CurrencyDisplay).
+- `src/hooks/` : Logique réutilisable (détection layout adaptatif).
