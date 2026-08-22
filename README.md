@@ -1,6 +1,14 @@
 # Scan My Devise (SMD)
 
+[![Release APK](https://img.shields.io/badge/Release-APK%20v1.0.0-00E676?style=for-the-badge&logo=android&logoColor=white)](https://github.com/t12lve/scanmydevise/releases/download/v1.0.0/app-release.apk)
+[![Landing Page](https://img.shields.io/badge/Site-GitHub%20Pages-00D2FF?style=for-the-badge&logo=githubpages&logoColor=white)](https://t12lve.github.io/scanmydevise/)
+[![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](LICENSE)
+
 Application mobile Android native optimisée pour l'ergonomie de terrain, la performance offline-first, la confidentialité absolue et les écrans pliables.
+
+> 📲 **Téléchargement direct APK** : [Télécharger `app-release.apk` (v1.0.0)](https://github.com/t12lve/scanmydevise/releases/download/v1.0.0/app-release.apk)  
+> 🌐 **Site vitrine GitHub Pages** : [https://t12lve.github.io/scanmydevise/](https://t12lve.github.io/scanmydevise/)  
+> ⚠️ **Note** : Cette application est distribuée exclusivement et directement via GitHub (aucune publication sur le Play Store).
 
 ## Fonctionnalités
 - **OCR en Temps Réel** : Lecture des prix via la caméra, traitement local 100% sans envoi de données.
@@ -8,7 +16,12 @@ Application mobile Android native optimisée pour l'ergonomie de terrain, la per
 - **Mode Pliable (Foldable)** : Détection dynamique de l'écran avec passage en mode double-panneau côte à côte.
 - **Privacy-by-Design** : Aucun tracker (Expo Telemetry désactivé), appels réseau uniquement sur demande (Update Rates).
 
-## Prérequis
+## Télécharger et Installer
+1. Téléchargez la dernière version : [app-release.apk (v1.0.0)](https://github.com/t12lve/scanmydevise/releases/download/v1.0.0/app-release.apk)
+2. Sur Android, autorisez l'installation d'applications inconnues depuis votre navigateur.
+3. Ouvrez le fichier APK pour l'installer et lancez l'application.
+
+## Prérequis pour le développement
 - [Node.js](https://nodejs.org/) (v18+)
 - Compte Expo (Optionnel mais recommandé pour EAS Build cloud)
 - [EAS CLI](https://docs.expo.dev/build/setup/) (`npm install -g eas-cli`)

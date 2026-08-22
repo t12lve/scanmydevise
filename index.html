@@ -1,26 +1,40 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Politique de Confidentialité — Scan My Devise (t12lve)</title>
-  <meta name="description" content="Politique de confidentialité officielle de l'application Scan My Devise par t12lve. Transparence totale sur l'utilisation de la caméra et la gestion des données.">
-  <meta name="robots" content="index, follow">
+  <title>Scan My Devise (SMD) — Scanner de prix & Convertisseur de devises Android</title>
+  <meta name="description" content="Application Android native ultra-rapide pour scanner les prix à l'étranger et les convertir instantanément en direct. 100% hors-ligne, zéro tracking, support des écrans pliables. Téléchargement APK direct.">
+  <meta name="keywords" content="Scan My Devise, SMD, scanner prix ocr, convertisseur devises android, apk direct, offline currency converter, travel currency scanner">
   <meta name="author" content="t12lve">
+  <meta property="og:title" content="Scan My Devise — Scanner de prix OCR & Convertisseur de devises">
+  <meta property="og:description" content="Scanner de prix en temps réel par caméra et conversion de devises hors-ligne. 100% local, zéro pistage, optimisé pliables. Téléchargez l'APK officiel.">
+  <meta property="og:image" content="bigpromo.jpg">
+  <meta property="og:type" content="website">
+  <link rel="icon" type="image/png" href="icone.png">
+
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
   <style>
     :root {
-      --bg-color: #0B0E14;
-      --card-bg: rgba(22, 27, 38, 0.75);
-      --card-border: rgba(255, 255, 255, 0.08);
-      --accent-color: #00E676;
-      --accent-glow: rgba(0, 230, 118, 0.25);
-      --text-main: #F0F4F8;
+      --bg-dark: #07090E;
+      --bg-surface: #0E131F;
+      --bg-card: rgba(18, 24, 38, 0.72);
+      --bg-card-hover: rgba(26, 35, 54, 0.85);
+      --border-color: rgba(255, 255, 255, 0.08);
+      --border-highlight: rgba(0, 230, 118, 0.35);
+      --accent-green: #00E676;
+      --accent-green-glow: rgba(0, 230, 118, 0.4);
+      --accent-cyan: #00D2FF;
+      --accent-purple: #9D4EDD;
+      --text-main: #F8FAFC;
       --text-muted: #94A3B8;
       --text-dim: #64748B;
+      --gradient-brand: linear-gradient(135deg, #00E676 0%, #00D2FF 100%);
+      --gradient-card: linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 100%);
     }
 
     * {
@@ -29,264 +43,1209 @@
       padding: 0;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      background-color: var(--bg-color);
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg-dark);
       color: var(--text-main);
-      line-height: 1.6;
-      padding: 2rem 1rem;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      background-image: 
-        radial-gradient(circle at 15% 15%, rgba(0, 230, 118, 0.05) 0%, transparent 40%),
-        radial-gradient(circle at 85% 85%, rgba(32, 138, 239, 0.05) 0%, transparent 40%);
+      line-height: 1.65;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Ambient Background Glows */
+    .glow-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(0, 230, 118, 0.08) 0%, transparent 45%),
+        radial-gradient(circle at 85% 30%, rgba(0, 210, 255, 0.08) 0%, transparent 45%),
+        radial-gradient(circle at 50% 80%, rgba(157, 78, 221, 0.06) 0%, transparent 50%);
     }
 
     .container {
-      max-width: 800px;
-      width: 100%;
-      background: var(--card-bg);
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Typography */
+    h1, h2, h3, h4, .font-heading {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .gradient-text {
+      background: var(--gradient-brand);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Navigation */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(7, 9, 14, 0.85);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
-      border: 1px solid var(--card-border);
-      border-radius: 24px;
-      padding: 2.5rem;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+      border-bottom: 1px solid var(--border-color);
+      transition: all 0.3s ease;
     }
 
-    header {
-      border-bottom: 1px solid var(--card-border);
-      padding-bottom: 2rem;
-      margin-bottom: 2rem;
-      text-align: center;
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 76px;
     }
 
-    .badge {
-      display: inline-block;
-      padding: 6px 14px;
-      background: rgba(0, 230, 118, 0.1);
-      border: 1px solid var(--accent-glow);
-      color: var(--accent-color);
-      border-radius: 9999px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      margin-bottom: 1rem;
-      text-transform: uppercase;
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text-main);
     }
 
-    h1 {
-      font-size: 2.2rem;
-      font-weight: 700;
-      color: #FFFFFF;
-      margin-bottom: 0.5rem;
+    .logo-img {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      box-shadow: 0 4px 14px rgba(0, 230, 118, 0.25);
+    }
+
+    .logo-text {
+      font-size: 1.25rem;
+      font-weight: 800;
+      font-family: 'Outfit', sans-serif;
       letter-spacing: -0.5px;
     }
 
-    .subtitle {
+    .logo-badge {
+      font-size: 0.7rem;
+      padding: 2px 7px;
+      background: rgba(0, 230, 118, 0.15);
+      border: 1px solid var(--border-highlight);
+      color: var(--accent-green);
+      border-radius: 6px;
+      font-weight: 700;
+      margin-left: 4px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-main);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 0.85rem 1.6rem;
+      border-radius: 14px;
+      font-weight: 600;
+      font-size: 0.98rem;
+      text-decoration: none;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--gradient-brand);
+      color: #05080E;
+      box-shadow: 0 6px 24px rgba(0, 230, 118, 0.3);
+      font-weight: 700;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 32px rgba(0, 230, 118, 0.45);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      backdrop-filter: blur(10px);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .btn-sm {
+      padding: 0.55rem 1.1rem;
+      font-size: 0.88rem;
+      border-radius: 10px;
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 5rem 0 4rem;
+      text-align: center;
+    }
+
+    .hero-badge-container {
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      background: rgba(0, 230, 118, 0.1);
+      border: 1px solid rgba(0, 230, 118, 0.25);
+      border-radius: 9999px;
+      color: var(--accent-green);
+      font-size: 0.88rem;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+
+    .hero-pill .dot {
+      width: 8px;
+      height: 8px;
+      background-color: var(--accent-green);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--accent-green);
+      animation: pulse-dot 2s infinite;
+    }
+
+    @keyframes pulse-dot {
+      0% { opacity: 0.5; transform: scale(0.9); }
+      50% { opacity: 1; transform: scale(1.2); }
+      100% { opacity: 0.5; transform: scale(0.9); }
+    }
+
+    .hero-title {
+      font-size: clamp(2.4rem, 5.5vw, 4.2rem);
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      color: #FFFFFF;
+    }
+
+    .hero-description {
+      max-width: 720px;
+      margin: 0 auto 2.5rem;
+      font-size: 1.18rem;
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .download-card-cta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: var(--gradient-brand);
+      color: #05080E;
+      padding: 1rem 1.8rem;
+      border-radius: 18px;
+      text-decoration: none;
+      box-shadow: 0 10px 35px rgba(0, 230, 118, 0.35);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .download-card-cta:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 16px 45px rgba(0, 230, 118, 0.5);
+    }
+
+    .cta-icon-box {
+      width: 44px;
+      height: 44px;
+      background: rgba(0, 0, 0, 0.15);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cta-texts {
+      text-align: left;
+    }
+
+    .cta-main-text {
+      font-size: 1.15rem;
+      font-weight: 800;
+      font-family: 'Outfit', sans-serif;
+      line-height: 1.2;
+    }
+
+    .cta-sub-text {
+      font-size: 0.8rem;
+      font-weight: 600;
+      opacity: 0.85;
+    }
+
+    .hero-meta-strip {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      font-size: 0.88rem;
+      color: var(--text-dim);
+      margin-top: 1rem;
+    }
+
+    .hero-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .hero-meta-item svg {
+      color: var(--accent-green);
+    }
+
+    /* Hero Visual Showcase */
+    .hero-preview {
+      margin-top: 3.5rem;
+      position: relative;
+    }
+
+    .hero-preview-frame {
+      max-width: 980px;
+      margin: 0 auto;
+      border-radius: 24px;
+      padding: 10px;
+      background: linear-gradient(135deg, rgba(0, 230, 118, 0.3), rgba(0, 210, 255, 0.2), rgba(255, 255, 255, 0.05));
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.7);
+    }
+
+    .hero-preview-img {
+      width: 100%;
+      height: auto;
+      border-radius: 16px;
+      display: block;
+      object-fit: cover;
+    }
+
+    /* Badges / Stats Strip */
+    .stats-ribbon {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      margin: 4rem 0;
+    }
+
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 18px;
+      padding: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      backdrop-filter: blur(12px);
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .stat-card:hover {
+      border-color: rgba(255, 255, 255, 0.18);
+      transform: translateY(-2px);
+    }
+
+    .stat-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: rgba(0, 230, 118, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-green);
+      flex-shrink: 0;
+    }
+
+    .stat-info h4 {
+      font-size: 1.1rem;
+      color: #FFFFFF;
+      margin-bottom: 2px;
+    }
+
+    .stat-info p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* Section Global Headers */
+    .section-header {
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto 3.5rem;
+    }
+
+    .section-tag {
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--accent-green);
+      letter-spacing: 1.5px;
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+
+    .section-title {
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      margin-bottom: 1rem;
+      color: #FFFFFF;
+    }
+
+    .section-subtitle {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+    }
+
+    /* Features Grid */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.75rem;
+      margin-bottom: 6rem;
+    }
+
+    .feature-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 22px;
+      padding: 2rem;
+      backdrop-filter: blur(14px);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--gradient-brand);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .feature-card:hover {
+      border-color: var(--border-highlight);
+      background: var(--bg-card-hover);
+      transform: translateY(-4px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .feature-card:hover::before {
+      opacity: 1;
+    }
+
+    .feature-icon-wrapper {
+      width: 54px;
+      height: 54px;
+      border-radius: 16px;
+      background: rgba(0, 230, 118, 0.12);
+      border: 1px solid rgba(0, 230, 118, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-green);
+      margin-bottom: 1.5rem;
+    }
+
+    .feature-card h3 {
+      font-size: 1.35rem;
+      color: #FFFFFF;
+      margin-bottom: 0.75rem;
+    }
+
+    .feature-card p {
       color: var(--text-muted);
       font-size: 0.95rem;
+      line-height: 1.6;
     }
 
-    .metadata-box {
-      display: flex;
-      gap: 1.5rem;
-      justify-content: center;
-      margin-top: 1.5rem;
-      font-size: 0.85rem;
-      color: var(--text-dim);
+    /* Showcase Gallery */
+    .showcase-section {
+      padding: 2rem 0 6rem;
     }
 
-    .metadata-item strong {
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .gallery-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 24px;
+      padding: 1.5rem;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+
+    .gallery-item:hover {
+      border-color: rgba(0, 210, 255, 0.3);
+      transform: translateY(-4px);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      border-radius: 14px;
+      display: block;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+      margin-bottom: 1.25rem;
+    }
+
+    .gallery-item h4 {
+      font-size: 1.2rem;
+      color: #FFFFFF;
+      margin-bottom: 0.3rem;
+    }
+
+    .gallery-item p {
+      font-size: 0.9rem;
       color: var(--text-muted);
     }
 
-    section {
-      margin-bottom: 2rem;
+    /* Installation Steps */
+    .install-section {
+      background: linear-gradient(180deg, rgba(14, 19, 31, 0.6) 0%, rgba(7, 9, 14, 0.8) 100%);
+      border-top: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+      padding: 5rem 0;
+      margin-bottom: 6rem;
     }
 
-    h2 {
-      font-size: 1.3rem;
-      font-weight: 600;
+    .steps-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-bottom: 3.5rem;
+    }
+
+    .step-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 2rem;
+      position: relative;
+    }
+
+    .step-number {
+      position: absolute;
+      top: -16px;
+      left: 24px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--gradient-brand);
+      color: #05080E;
+      font-weight: 800;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0, 230, 118, 0.35);
+    }
+
+    .step-card h3 {
+      font-size: 1.25rem;
       color: #FFFFFF;
-      margin-bottom: 1rem;
+      margin-top: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .step-card p {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+    }
+
+    /* Security & Checksum Banner */
+    .security-box {
+      background: rgba(0, 230, 118, 0.05);
+      border: 1px solid rgba(0, 230, 118, 0.2);
+      border-radius: 20px;
+      padding: 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      backdrop-filter: blur(10px);
+    }
+
+    .security-info {
+      max-width: 680px;
+    }
+
+    .security-info h4 {
+      font-size: 1.2rem;
+      color: #FFFFFF;
+      margin-bottom: 0.4rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .security-info p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .hash-field {
       display: flex;
       align-items: center;
       gap: 10px;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 8px 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      font-family: monospace;
+      font-size: 0.82rem;
+      color: var(--accent-green);
+      word-break: break-all;
     }
 
-    h2::before {
-      content: '';
-      display: inline-block;
-      width: 4px;
-      height: 18px;
-      background: var(--accent-color);
-      border-radius: 2px;
+    .btn-copy {
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: #FFFFFF;
+      padding: 5px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.78rem;
+      font-weight: 600;
+      transition: background 0.2s;
     }
 
-    p {
+    .btn-copy:hover {
+      background: var(--accent-green);
+      color: #05080E;
+    }
+
+    /* FAQ Section */
+    .faq-grid {
+      max-width: 840px;
+      margin: 0 auto 6rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .faq-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+
+    .faq-item:hover {
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .faq-question {
+      padding: 1.25rem 1.5rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-weight: 600;
+      font-size: 1.05rem;
+      color: #FFFFFF;
+      user-select: none;
+    }
+
+    .faq-question svg {
+      transition: transform 0.3s ease;
+      color: var(--accent-green);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+      padding: 0 1.5rem;
       color: var(--text-muted);
-      margin-bottom: 1rem;
-      font-size: 0.98rem;
-    }
-
-    ul {
-      list-style: none;
-      padding-left: 0;
-      margin-bottom: 1rem;
-    }
-
-    li {
-      position: relative;
-      padding-left: 1.5rem;
-      color: var(--text-muted);
-      margin-bottom: 0.75rem;
       font-size: 0.95rem;
     }
 
-    li::before {
-      content: '✓';
-      position: absolute;
-      left: 0;
-      color: var(--accent-color);
-      font-weight: bold;
+    .faq-item.active .faq-answer {
+      max-height: 250px;
+      padding: 0 1.5rem 1.25rem;
     }
 
-    .highlight-card {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      border-radius: 16px;
-      padding: 1.25rem;
-      margin: 1rem 0;
+    .faq-item.active .faq-question svg {
+      transform: rotate(180deg);
     }
 
-    .highlight-card p {
-      margin-bottom: 0;
-    }
-
-    footer {
-      border-top: 1px solid var(--card-border);
-      padding-top: 1.5rem;
-      margin-top: 3rem;
+    /* Final CTA */
+    .final-cta {
       text-align: center;
+      padding: 5rem 2rem;
+      background: radial-gradient(circle at 50% 50%, rgba(0, 230, 118, 0.12) 0%, transparent 65%), var(--bg-card);
+      border: 1px solid var(--border-highlight);
+      border-radius: 32px;
+      margin-bottom: 6rem;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    }
+
+    .final-cta h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      margin-bottom: 1rem;
+      color: #FFFFFF;
+    }
+
+    .final-cta p {
+      max-width: 600px;
+      margin: 0 auto 2.5rem;
+      font-size: 1.1rem;
+      color: var(--text-muted);
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border-color);
+      padding: 3.5rem 0 2.5rem;
+      background: rgba(5, 7, 11, 0.95);
+      font-size: 0.9rem;
       color: var(--text-dim);
-      font-size: 0.85rem;
     }
 
-    footer a {
-      color: var(--accent-color);
+    .footer-inner {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .footer-brand {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.75rem;
+      list-style: none;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
       text-decoration: none;
+      transition: color 0.2s;
     }
 
-    footer a:hover {
-      text-decoration: underline;
+    .footer-links a:hover {
+      color: var(--accent-green);
     }
 
-    @media (max-width: 640px) {
-      .container {
-        padding: 1.5rem;
-        border-radius: 16px;
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 1.5rem;
+      text-align: center;
+      font-size: 0.82rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .gallery-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
       }
 
-      h1 {
-        font-size: 1.75rem;
+      .hero {
+        padding: 3rem 0 2rem;
       }
 
-      .metadata-box {
+      .hero-title {
+        font-size: 2.2rem;
+      }
+
+      .hero-meta-strip {
         flex-direction: column;
         gap: 0.5rem;
-        align-items: center;
+      }
+
+      .security-box {
+        flex-direction: column;
+        align-items: flex-start;
       }
     }
   </style>
 </head>
 <body>
-  <main class="container" id="main-content">
-    <header>
-      <span class="badge">Google Play Console Compliant</span>
-      <h1>Politique de Confidentialité</h1>
-      <p class="subtitle">Application <strong>Scan My Devise (SMD)</strong></p>
+
+  <!-- Ambient Glow Effects -->
+  <div class="glow-bg"></div>
+
+  <!-- Navigation Bar -->
+  <nav id="navbar">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="#" class="logo-container">
+          <img src="icone.png" alt="Scan My Devise Logo" class="logo-img">
+          <div>
+            <span class="logo-text">Scan My Devise</span>
+            <span class="logo-badge">v1.0.0</span>
+          </div>
+        </a>
+
+        <ul class="nav-links">
+          <li><a href="#features">Fonctionnalités</a></li>
+          <li><a href="#showcase">Aperçu</a></li>
+          <li><a href="#install">Installation</a></li>
+          <li><a href="#security">Sécurité & Checksum</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="privacy_policy.html">Confidentialité</a></li>
+        </ul>
+
+        <div class="nav-actions">
+          <a href="https://github.com/t12lve/scanmydevise/releases/download/v1.0.0/app-release.apk" class="btn btn-primary btn-sm">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span>APK Android</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-badge-container">
+        <div class="hero-pill">
+          <span class="dot"></span>
+          <span>Application Android Native • 100% Offline-First</span>
+        </div>
+      </div>
+
+      <h1 class="hero-title">
+        Scannez les prix à l'étranger.<br>
+        <span class="gradient-text">Convertissez instantanément.</span>
+      </h1>
+
+      <p class="hero-description">
+        L'outil tout-en-un pour vos voyages : visez une étiquette avec l'appareil photo, l'OCR lit le montant en temps réel et calcule immédiatement son équivalent en euros. Traitement 100% sur l'appareil, sans aucun cloud ni pistage.
+      </p>
+
+      <div class="hero-cta-group">
+        <a href="https://github.com/t12lve/scanmydevise/releases/download/v1.0.0/app-release.apk" class="download-card-cta" id="download-btn-hero">
+          <div class="cta-icon-box">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#05080E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          </div>
+          <div class="cta-texts">
+            <div class="cta-main-text">Télécharger l'APK v1.0.0</div>
+            <div class="cta-sub-text">Release GitHub • 179 Mo • Android 8.0+</div>
+          </div>
+        </a>
+
+        <a href="https://github.com/t12lve/scanmydevise" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          <span>Dépôt GitHub</span>
+        </a>
+      </div>
+
+      <div class="hero-meta-strip">
+        <div class="hero-meta-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>100% Gratuit & Sans Pub</span>
+        </div>
+        <div class="hero-meta-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>Zéro Compte Requis</span>
+        </div>
+        <div class="hero-meta-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>Distribution Directe APK</span>
+        </div>
+      </div>
+
+      <!-- Hero Visual Frame -->
+      <div class="hero-preview">
+        <div class="hero-preview-frame">
+          <img src="bigpromo.jpg" alt="Aperçu Scan My Devise" class="hero-preview-img">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Badges / Key Strengths -->
+  <section class="container">
+    <div class="stats-ribbon">
+      <div class="stat-card">
+        <div class="stat-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="stat-info">
+          <h4>Zero Tracker</h4>
+          <p>Aucune télémétrie, respect absolu de la vie privée.</p>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div class="stat-info">
+          <h4>Temps Réel</h4>
+          <p>Détection OCR ultrarapide sur le processeur local.</p>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        <div class="stat-info">
+          <h4>Écrans Pliables</h4>
+          <p>Support double panneau adaptatif (Foldables).</p>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
+        <div class="stat-info">
+          <h4>Multi-Devises</h4>
+          <p>Taux de change mondiaux disponibles hors-ligne.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="container">
+    <div class="section-header">
+      <span class="section-tag">Performances & Confidentialité</span>
+      <h2 class="section-title">Conçue pour le terrain et les voyages</h2>
+      <p class="section-subtitle">Chaque fonctionnalité a été pensée pour être immédiate, robuste hors connexion et agréable au quotidien.</p>
+    </div>
+
+    <div class="features-grid">
+      <!-- Feature 1 -->
+      <div class="feature-card">
+        <div class="feature-icon-wrapper">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+        </div>
+        <h3>Scanner OCR en Direct</h3>
+        <p>Visez une étiquette ou un menu au restaurant : l'algorithme d'apprentissage automatique ML Kit isole le prix instantanément dans le flux caméra sans devoir prendre de photo.</p>
+      </div>
+
+      <!-- Feature 2 -->
+      <div class="feature-card">
+        <div class="feature-icon-wrapper">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/></svg>
+        </div>
+        <h3>Conversion Hors-Ligne</h3>
+        <p>Pas de réseau à l'étranger ? Aucun problème. Les derniers taux de change sont mémorisés localement sur votre téléphone avec possibilité de rafraîchissement d'un tap dès que vous avez du Wi-Fi.</p>
+      </div>
+
+      <!-- Feature 3 -->
+      <div class="feature-card">
+        <div class="feature-icon-wrapper">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+        </div>
+        <h3>Mode Pliable (Dual-Pane)</h3>
+        <p>Sur les smartphones pliants (Galaxy Z Fold, Pixel Fold...) et tablettes, l'interface se scinde automatiquement : le viseur caméra reste ouvert à gauche pendant que le clavier et l'historique s'affichent à droite.</p>
+      </div>
+
+      <!-- Feature 4 -->
+      <div class="feature-card">
+        <div class="feature-icon-wrapper">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+        <h3>Confidentialité Radicale</h3>
+        <p>Zéro compte utilisateur, zéro publicité, aucun cookie ni traceur analytique. Le flux caméra ne quitte jamais la mémoire vive de votre appareil. Vos achats et vos scans restent 100% privés.</p>
+      </div>
+
+      <!-- Feature 5 -->
+      <div class="feature-card">
+        <div class="feature-icon-wrapper">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><line x1="6" y1="8" x2="6.01" y2="8"/><line x1="10" y1="8" x2="10.01" y2="8"/><line x1="14" y1="8" x2="14.01" y2="8"/><line x1="18" y1="8" x2="18.01" y2="8"/><line x1="6" y1="12" x2="6.01" y2="12"/><line x1="10" y1="12" x2="10.01" y2="12"/><line x1="14" y1="12" x2="14.01" y2="12"/><line x1="18" y1="12" x2="18.01" y2="12"/></svg>
+        </div>
+        <h3>Clavier & Historique Rapide</h3>
+        <p>Basculez à tout moment vers un clavier numérique tactile ultra-réactif pour saisir ou ajuster manuellement une valeur, et retrouvez l'historique complet de vos scans dans un volet latéral fluide.</p>
+      </div>
+
+      <!-- Feature 6 -->
+      <div class="feature-card">
+        <div class="feature-icon-wrapper">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+        </div>
+        <h3>Retour Haptique & Sons</h3>
+        <p>Un retour vibratoire et un signal sonore discret confirment chaque scan réussi. Vous savez instantanément que le montant a été capturé, même dans des environnements bruyants.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Showcase Gallery Section -->
+  <section id="showcase" class="container showcase-section">
+    <div class="section-header">
+      <span class="section-tag">Captures d'écran</span>
+      <h2 class="section-title">Interface sombre, épurée et immersive</h2>
+      <p class="section-subtitle">Découvrez l'interface utilisateur de Scan My Devise en action sur Android.</p>
+    </div>
+
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <img src="screenshot1.jpg" alt="Capture d'écran Scanner Caméra en direct">
+        <h4>Viseur Caméra & Détection Dynamique</h4>
+        <p>Affichage en surimpression du prix détecté et conversion directe en devise cible.</p>
+      </div>
+
+      <div class="gallery-item">
+        <img src="screenshot2.jpg" alt="Capture d'écran Tiroir Historique et Réglages">
+        <h4>Tiroir d'Historique & Paramètres</h4>
+        <p>Accès instantané aux derniers montants scannés et sélection de la devise de conversion.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Installation Guide Section -->
+  <section id="install" class="install-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Guide d'installation</span>
+        <h2 class="section-title">Comment installer l'APK sur Android</h2>
+        <p class="section-subtitle">L'application n'étant pas distribuée sur le Play Store, voici la marche à suivre en 3 étapes simples.</p>
+      </div>
+
+      <div class="steps-container">
+        <!-- Step 1 -->
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <h3>Téléchargez le fichier APK</h3>
+          <p>Cliquez sur le bouton de téléchargement ci-dessous pour récupérer directement le fichier officiel <code>app-release.apk</code> hébergé sur les serveurs GitHub.</p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <h3>Autorisez l'installation</h3>
+          <p>Si Android ou Chrome affiche l'avertissement <em>« Fichier potentiellement dangereux »</em>, validez <em>« Télécharger quand même »</em>. Puis, dans les paramètres, cochez <em>« Autoriser cette source »</em>.</p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <h3>Ouvrez & Scannez !</h3>
+          <p>Ouvrez le fichier téléchargé, appuyez sur <strong>Installer</strong>. Accordez la permission caméra au premier démarrage pour démarrer vos scans de prix.</p>
+        </div>
+      </div>
+
+      <!-- Security / Checksum Box -->
+      <div id="security" class="security-box">
+        <div class="security-info">
+          <h4>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-green)" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Intégrité & Empreinte SHA-256 du build officiel
+          </h4>
+          <p>Vérifiez que votre fichier APK correspond exactement à la version compilée et signée par le développeur :</p>
+          <div class="hash-field">
+            <span id="sha-hash">A25780D87FA09546908BC4E17DF36464C2D7A3269A197DEB266A954F6C19F3FD</span>
+            <button class="btn-copy" onclick="copyHash()">Copier</button>
+          </div>
+        </div>
+        <div>
+          <a href="https://github.com/t12lve/scanmydevise/releases/tag/v1.0.0" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            <span>Voir la Release sur GitHub</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section id="faq" class="container">
+    <div class="section-header">
+      <span class="section-tag">Questions Fréquentes</span>
+      <h2 class="section-title">Tout ce que vous devez savoir</h2>
+    </div>
+
+    <div class="faq-grid">
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span>Pourquoi l'application n'est-elle pas publiée sur le Google Play Store ?</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="faq-answer">
+          <p>Scan My Devise est un projet libre et indépendant, conçu pour vous offrir une autonomie totale sans dépendance vis-à-vis des magasins d'applications. La distribution directe via GitHub garantit un accès instantané aux versions sans intermédiaire, sans publicité et sans restrictions.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span>L'application fonctionne-t-elle sans connexion Internet ?</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="faq-answer">
+          <p>Oui, à 100%. La reconnaissance optique de prix (OCR) et le moteur de conversion de devises s'exécutent entièrement en local sur votre smartphone. Une connexion réseau n'est utile que si vous décidez d'actualiser les taux de change avec les dernières données du marché.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span>Mes photos ou flux caméra sont-ils envoyés sur des serveurs ?</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="faq-answer">
+          <p>Non, jamais. Aucune image ni flux vidéo n'est enregistré sur le disque de votre appareil ou transmis via Internet. Tout le traitement d'image est exécuté en temps réel en mémoire volatile par Google ML Kit sur votre processeur.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span>Quelles devises sont prises en charge ?</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="faq-answer">
+          <p>L'application prend en charge les principales devises internationales (EUR, USD, JPY, GBP, CAD, CHF, AUD, CNY, MAD, etc.). Vous pouvez sélectionner à tout moment votre devise d'origine et votre devise de conversion cible.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final Call to Action -->
+  <section class="container">
+    <div class="final-cta">
+      <h2>Prêt à voyager sans mauvaises surprises ?</h2>
+      <p>Téléchargez gratuitement Scan My Devise dès maintenant et simplifiez vos achats partout dans le monde.</p>
+      <a href="https://github.com/t12lve/scanmydevise/releases/download/v1.0.0/app-release.apk" class="download-card-cta" style="display: inline-flex;">
+        <div class="cta-icon-box">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#05080E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        </div>
+        <div class="cta-texts">
+          <div class="cta-main-text">Télécharger l'APK v1.0.0</div>
+          <div class="cta-sub-text">Release GitHub • 179 Mo • Android 8.0+</div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <img src="icone.png" alt="Logo" style="width: 28px; height: 28px; border-radius: 8px;">
+            <strong style="color: #FFFFFF; font-size: 1.1rem; font-family: 'Outfit';">Scan My Devise</strong>
+          </div>
+          <span>Développé avec passion par <a href="https://github.com/t12lve" target="_blank" rel="noopener noreferrer" style="color: var(--accent-green); text-decoration: none; font-weight: 600;">t12lve</a></span>
+        </div>
+
+        <ul class="footer-links">
+          <li><a href="https://github.com/t12lve/scanmydevise/releases/download/v1.0.0/app-release.apk">Télécharger APK</a></li>
+          <li><a href="https://github.com/t12lve/scanmydevise" target="_blank" rel="noopener noreferrer">GitHub Repository</a></li>
+          <li><a href="https://github.com/t12lve/scanmydevise/releases" target="_blank" rel="noopener noreferrer">Toutes les Releases</a></li>
+          <li><a href="privacy_policy.html">Politique de Confidentialité</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2026 t12lve — Scan My Devise (SMD). Distribué sous licence open-source MIT.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Copy SHA-256 Hash
+    function copyHash() {
+      const hashText = document.getElementById('sha-hash').innerText;
+      navigator.clipboard.writeText(hashText).then(() => {
+        const btn = document.querySelector('.btn-copy');
+        const originalText = btn.innerText;
+        btn.innerText = 'Copié !';
+        btn.style.background = '#00E676';
+        btn.style.color = '#05080E';
+        setTimeout(() => {
+          btn.innerText = originalText;
+          btn.style.background = '';
+          btn.style.color = '';
+        }, 2000);
+      });
+    }
+
+    // Toggle FAQ Accordion
+    function toggleFaq(button) {
+      const item = button.parentElement;
+      const isActive = item.classList.contains('active');
       
-      <div class="metadata-box">
-        <div class="metadata-item"><strong>Développeur :</strong> t12lve</div>
-        <div class="metadata-item"><strong>ID Application :</strong> com.t12lve.scanmydevise</div>
-        <div class="metadata-item"><strong>Dernière mise à jour :</strong> 9 août 2026</div>
-      </div>
-    </header>
+      // Close all other FAQs
+      document.querySelectorAll('.faq-item').forEach(faq => {
+        faq.classList.remove('active');
+      });
 
-    <section id="introduction">
-      <h2>1. Engagement de Confidentialité</h2>
-      <p>
-        La présente politique de confidentialité décrit la façon dont l'application <strong>Scan My Devise (SMD)</strong>, développée par <strong>t12lve</strong>, traite vos informations personnelles.
-      </p>
-      <p>
-        Nous croyons en un respect strict de la vie privée. L'application a été conçue pour fonctionner de manière autonome et sécurisée, sans collecte ni revente de données personnelles.
-      </p>
-    </section>
-
-    <section id="camera-usage">
-      <h2>2. Utilisation de la Caméra (Permission CAMERA)</h2>
-      <p>
-        L'application demande l'accès à l'appareil photo de votre appareil mobile pour la fonctionnalité suivante :
-      </p>
-      <div class="highlight-card">
-        <p>
-          <strong>Reconnaissance Optique de Caractères (OCR sur l'appareil) :</strong> La caméra est utilisée exclusivement pour détecter visuellement les montants numériques et les prix figurant dans le viseur à la demande de l'utilisateur.
-        </p>
-      </div>
-      <ul>
-        <li><strong>Traitement 100% Local :</strong> Toutes les images prises ou affichées dans le viseur sont analysées en temps réel directement sur votre téléphone.</li>
-        <li><strong>Aucun Stockage d'Images :</strong> Aucune photo ou flux vidéo n'est enregistré dans la mémoire permanente de l'appareil ni transmis sur un serveur distant.</li>
-        <li><strong>Aucun Envoi Externe :</strong> Les flux vidéo ne quittent jamais votre téléphone.</li>
-      </ul>
-    </section>
-
-    <section id="data-collection">
-      <h2>3. Collecte et Partage de Données</h2>
-      <p>
-        <strong>Scan My Devise ne collecte, n'enregistre, ne suit et ne partage AUCUNE donnée personnelle.</strong>
-      </p>
-      <ul>
-        <li>Aucun identifiant d'appareil, adresse IP ou géolocalisation n'est sauvegardé.</li>
-        <li>Aucun outil de suivi publicitaire ou d'analyse comportementale (analytics tierces) n'est intégré.</li>
-        <li>Aucune création de compte ou adresse e-mail n'est requise pour utiliser l'application.</li>
-      </ul>
-    </section>
-
-    <section id="internet-permission">
-      <h2>4. Connexion Internet & Taux de Change</h2>
-      <p>
-        L'application utilise l'accès réseau (Internet) exclusivement pour télécharger les derniers taux de conversion monétaires mis à jour auprès d'API publiques gratuites et sécurisées.
-      </p>
-      <p>
-        Ces requêtes ne contiennent aucune donnée personnelle ni donnée d'identification utilisateur.
-      </p>
-    </section>
-
-    <section id="data-retention">
-      <h2>5. Historique Local</h2>
-      <p>
-        Les derniers montants scannés ou saisis manuellement sont conservés uniquement dans la mémoire volatile/locale (state) de l'application sur votre téléphone pour votre confort d'utilisation au cours de votre session. Ces données s'effacent selon les paramètres de l'appareil et ne sont jamais synchronisées en ligne.
-      </p>
-    </section>
-
-    <section id="contact">
-      <h2>6. Contact & Support</h2>
-      <p>
-        Pour toute question concernant cette politique de confidentialité ou l'utilisation de l'application, vous pouvez contacter le développeur :
-      </p>
-      <ul>
-        <li><strong>Développeur :</strong> t12lve</li>
-        <li><strong>Application :</strong> Scan My Devise</li>
-        <li><strong>Package :</strong> com.t12lve.scanmydevise</li>
-      </ul>
-    </section>
-
-    <footer>
-      <p>© 2026 t12lve — Scan My Devise. Tous droits réservés.</p>
-    </footer>
-  </main>
+      if (!isActive) {
+        item.classList.add('active');
+      }
+    }
+  </script>
 </body>
 </html>
